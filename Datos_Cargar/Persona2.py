@@ -5,8 +5,10 @@ def procesar_datos(input_file='C:/Code/dbsm/Datos_Cargar/masivoo.sql', output_fi
          open(output_file, mode='w', newline='', encoding='utf-8') as outfile:
         
         reader = csv.reader(infile)
-        # Preparamos el encabezado del archivo SQL de salida
         outfile.write("INSERT INTO persona1 (RUT, Nombre, Edad, Direccion) VALUES\n")
+
+        ruts_vistos = set()
+        primera_linea = True
 
         for row in reader:
             RUT = row[0].strip()  
@@ -15,13 +17,23 @@ def procesar_datos(input_file='C:/Code/dbsm/Datos_Cargar/masivoo.sql', output_fi
             Direccion = row[3].strip()  
 
             if len(RUT) < 10:
-                RUT = RUT.ljust(10, '0')  
-            
-            if len(Edad) == 1:
-                Edad = 'X' + Edad 
+                RUT = RUT.ljust(10, '0')
 
-            insert_statement = f"('{RUT}','{Nombre}','{Edad}','{Direccion}'),\n"
-            outfile.write(insert_statement)
+            if RUT in ruts_vistos:
+                continue
+            ruts_vistos.add(RUT)
+
+            if len(Edad) == 1:
+                Edad = '0' + Edad
+
+            linea_sql = f"('{RUT}','{Nombre}','{Edad}','{Direccion}')"
+            if not primera_linea:
+                outfile.write(",\n")
+            else:
+                primera_linea = False
+            outfile.write(linea_sql)
+
+        outfile.write(";\n") 
 
 # Llamar a la función
 procesar_datos(input_file='C:/Code/dbsm/Datos_Cargar/masivoo.sql', output_file='salida.sql')
