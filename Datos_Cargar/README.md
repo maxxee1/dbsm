@@ -4,8 +4,8 @@ En esta etapa, nos centramos en limpiar y estandarizar el archivo CSV antes de i
 
 ## ✅ Resumen de los cambios clave:
 
-- **Paréntesis abierto, comilla simple, paréntesis cerrado, coma: `( '),`  al inicio y final de cada línea.**
-- **Reemplazo de barras `|` por comas `´,´`**
+- **Paréntesis abierto, comilla simple, paréntesis cerrado, coma: `('),`  al inicio y final de cada línea.**
+- **Reemplazo de barras `|` por comas entre comillas simples `´,´`**
 - **Eliminación de comillas de números.**
 - **Modificación de RUTs de 6 a 12 dígitos, eliminando las comillas solo de los números.**
 
